@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Button } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  CircularProgress,
+  Button,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./ActivityLogs.css"; // Import the CSS file
 
 const ActivityLogs = () => {
   const [logs, setLogs] = useState([]);
@@ -11,12 +22,23 @@ const ActivityLogs = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const response = await axios.get("https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/user/activity-logs", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Get the token from local storage
-          },
-        });
-        setLogs(response.data);
+        const response = await axios.get(
+          "https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/user/activity-logs",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`, // Get the token from local storage
+            },
+          }
+        );
+
+        // Add a property to distinguish "admin login" for specific email
+        const updatedLogs = response.data.map((log) => ({
+          ...log,
+          isAdminLogin:
+            log.email === "shamindigovipothage2021@gmail.com" &&
+            log.activityType === "sign-in",
+        }));
+        setLogs(updatedLogs);
       } catch (error) {
         console.error("Error fetching activity logs:", error);
       } finally {
@@ -27,46 +49,72 @@ const ActivityLogs = () => {
     fetchLogs();
   }, []);
 
-  if (loading) return <CircularProgress style={{ display: "block", margin: "20px auto" }} />;
+  if (loading)
+    return (
+      <CircularProgress
+        className="loading-spinner"
+        style={{ display: "block", margin: "20px auto" }}
+      />
+    );
 
   return (
-    <TableContainer component={Paper} style={{ maxWidth: "800px", margin: "20px auto", padding: "20px" }}>
-      <Button 
-        variant="outlined" 
-        color="primary" 
-        onClick={() => navigate('/customer-dashboard')} 
-        style={{ marginBottom: "20px" }}
+    <TableContainer component={Paper} className="table-container">
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={() => navigate("/customer-dashboard")}
+        className="back-button"
       >
         Back to Dashboard
       </Button>
 
-      <h2 style={{ textAlign: "center" }}>Activity Logs</h2>
+      <h2 className="table-heading">Activity Logs</h2>
       {logs.length === 0 ? (
-        <p style={{ textAlign: "center" }}>No activity logs available.</p>
+        <p className="no-logs-message">No activity logs available.</p>
       ) : (
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><strong>Activity Type</strong></TableCell>
-              <TableCell><strong>Details</strong></TableCell>
-              <TableCell><strong>Timestamp</strong></TableCell>
-              <TableCell><strong>Sign In Time</strong></TableCell>
-              <TableCell><strong>Sign Out Time</strong></TableCell>
+              <TableCell>
+                <strong>Activity Type</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Email</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Details</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Timestamp</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Sign In Time</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Sign Out Time</strong>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {logs.map((log) => (
               <TableRow key={log._id}>
-                <TableCell>{log.activityType}</TableCell>
+                <TableCell className={log.isAdminLogin ? "admin-login" : ""}>
+                  {log.isAdminLogin ? "Admin Login" : log.activityType}
+                </TableCell>
+                <TableCell>{log.email}</TableCell>
                 <TableCell>{log.activityDetails}</TableCell>
-                <TableCell>{new Date(log.timestamp).toLocaleString()}</TableCell>
-                
-                {/* Render Sign In and Sign Out Time if available */}
                 <TableCell>
-                  {log.activityType === "sign-in" ? new Date(log.timestamp).toLocaleString() : "-"}
+                  {new Date(log.timestamp).toLocaleString()}
                 </TableCell>
                 <TableCell>
-                  {log.activityType === "sign-out" ? new Date(log.timestamp).toLocaleString() : "-"}
+                  {log.activityType === "sign-in"
+                    ? new Date(log.timestamp).toLocaleString()
+                    : "-"}
+                </TableCell>
+                <TableCell>
+                  {log.activityType === "sign-out"
+                    ? new Date(log.timestamp).toLocaleString()
+                    : "-"}
                 </TableCell>
               </TableRow>
             ))}

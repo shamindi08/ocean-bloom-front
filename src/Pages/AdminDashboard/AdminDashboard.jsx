@@ -28,10 +28,10 @@ const AdminDashboard = () => {
           </button>
         </section>
         <section className="admin-section">
-          <h2>Manage Products</h2>
-          <p>View, add, or edit products available on the platform.</p>
-          <button onClick={() => navigate('/admin/products')} className="admin-action-button">
-            Go to Product Management
+          <h2>View User Activity</h2>
+          
+          <button onClick={() => navigate('/activity-logs')} className="admin-action-button">
+            User Activity
           </button>
         </section>
         <section className="admin-section">
