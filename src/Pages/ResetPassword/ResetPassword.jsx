@@ -28,7 +28,7 @@ const ResetPassword = () => {
 
     try {
       
-      await axios.post(`/api/reset-password/${token}`, { password });
+      await axios.post(`https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/reset-password/${token}`, { password });
 
   
       setSuccess(true);

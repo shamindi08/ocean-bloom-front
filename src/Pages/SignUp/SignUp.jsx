@@ -37,7 +37,7 @@ const SignUp = () => {
 
         try {
             // Send signup request to backend
-            const response = await axios.post('http://localhost:5050/api/signup', {
+            const response = await axios.post('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/signup', {
                 name: username,
                 email: email,
                 password: password,

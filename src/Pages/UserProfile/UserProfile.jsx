@@ -16,7 +16,7 @@ const UserProfile = () => {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await axios.get('http://localhost:5050/api/user/profile', {
+                const response = await axios.get('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/user/profile', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -37,7 +37,7 @@ const UserProfile = () => {
         setLoading(true);
 
         try {
-            const response = await axios.put('http://localhost:5050/api/user/profile', {
+            const response = await axios.put('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/user/profile', {
                 username,
                 password,
                 newPassword,

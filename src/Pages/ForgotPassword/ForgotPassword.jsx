@@ -26,7 +26,7 @@ const ForgotPassword = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5050/api/forgot-password', { email });
+      const response = await axios.post('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/forgot-password', { email });
   
       if (response.status === 200) {
         setMessage('Password reset email has been sent! Check your inbox.');

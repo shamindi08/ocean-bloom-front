@@ -11,7 +11,7 @@ const ActivityLogs = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const response = await axios.get("/api/user/activity-logs", {
+        const response = await axios.get("https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/user/activity-logs", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`, // Get the token from local storage
           },

@@ -9,7 +9,7 @@ const UserManagement = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5050/api/admin/users', {
+      const response = await fetch('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/admin/users', {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.status === 403) {
@@ -26,7 +26,7 @@ const UserManagement = () => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5050/api/admin/users/${id}`, {
+      const response = await fetch(`https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/admin/users/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });

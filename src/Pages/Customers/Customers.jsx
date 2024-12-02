@@ -18,7 +18,7 @@ const Customers = () => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/customers', {
+        const response = await axios.get('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/customers', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`, // Use token for auth
           },
@@ -48,7 +48,7 @@ const Customers = () => {
     e.preventDefault();
     if (formMode === 'add') {
       try {
-        const response = await axios.post('http://localhost:5000/api/customers', selectedCustomer, {
+        const response = await axios.post('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/customers', selectedCustomer, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`, // Use token for auth
           },
@@ -59,7 +59,7 @@ const Customers = () => {
       }
     } else if (formMode === 'edit') {
       try {
-        await axios.put(`http://localhost:5000/api/customers/${selectedCustomer.id}`, selectedCustomer, {
+        await axios.put(`https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/customers/${selectedCustomer.id}`, selectedCustomer, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`, // Use token for auth
           },
@@ -74,7 +74,7 @@ const Customers = () => {
 
   const handleDeleteCustomer = async (customerId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/customers/${customerId}`, {
+      await axios.delete(`https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/customers/${customerId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, // Use token for auth
         },

@@ -16,7 +16,7 @@ const Verify2FA = ({ tempToken }) => {
 
     try {
       // Verify the code
-      const response = await axios.post('http://localhost:5050/api/verify-code', { code, tempToken });
+      const response = await axios.post('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/verify-code', { code, tempToken });
 
       if (response.data.token) {
         localStorage.setItem('token', response.data.token); // Store the final auth token

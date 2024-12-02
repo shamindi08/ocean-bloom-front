@@ -19,7 +19,7 @@ const UserDashboard = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:5050/api/user/verify-token', {
+        const response = await axios.get('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/user/verify-token', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.status !== 200) {
@@ -39,7 +39,7 @@ const UserDashboard = () => {
     const fetchActivityLogs = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get('http://localhost:5050/api/user/activity-logs', {
+        const response = await axios.get('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/user/activity-logs', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setActivityLogs(response.data);
@@ -54,7 +54,7 @@ const UserDashboard = () => {
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.get("http://localhost:5050/api/user/logout", {
+      await axios.get("https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/user/logout", {
         headers: { Authorization: `Bearer ${token}` },
       });
       localStorage.removeItem("token");

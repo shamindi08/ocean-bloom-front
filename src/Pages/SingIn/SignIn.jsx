@@ -45,7 +45,7 @@ const SignIn = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5050/api/signin', {
+      const response = await axios.post('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/signin', {
         email,
         password,
       });
@@ -76,7 +76,7 @@ const SignIn = () => {
     }
   
     try {
-      const response = await axios.post('http://localhost:5050/api/verify-otp', {
+      const response = await axios.post('https://oceanbackend-c54c9d8a19c1.herokuapp.com/api/verify-otp', {
         email,
         otp,
       });
